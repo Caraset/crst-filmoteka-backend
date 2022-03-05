@@ -1,11 +1,11 @@
 import { Router } from 'express'
 // import multer from 'multer'
-// import ctrl from 'controllers/users/index'
+import ctrl from '../../controllers/index'
 // import path from 'path'
 
-// import { validation, ctrlWrapper, auth } from '../../middlewares/index'
-import { validation, ctrlWrapper } from '../../middlewares/index'
-// import { userSchema, emailSchema } from '../../schemas/users.js'
+import { validation, ctrlWrapper, auth } from '../../middlewares/index'
+// import { validation, ctrlWrapper } from '../../middlewares/index'
+import { userSchema, emailSchema } from '../../schemas/user'
 
 const router = Router()
 
@@ -27,11 +27,11 @@ const router = Router()
 //   storage: storage,
 // })
 
-// router.post('/signup', validation(userSchema), ctrlWrapper(ctrl.register))
-// router.post('/login', validation(userSchema), ctrlWrapper(ctrl.login))
-// router.get('/logout', auth, ctrlWrapper(ctrl.logout))
-// router.get('/current', auth, ctrlWrapper(ctrl.current))
-// router.get('/verify/:verificationToken', ctrlWrapper(ctrl.verify))
+router.post('/signup', validation(userSchema), ctrlWrapper(ctrl.signUp))
+router.post('/login', validation(userSchema), ctrlWrapper(ctrl.login))
+router.get('/logout', auth, ctrlWrapper(ctrl.logout))
+router.get('/current', auth, ctrlWrapper(ctrl.current))
+router.get('/verify/:verificationToken', ctrlWrapper(ctrl.verify))
 // router.post(
 //   '/verify',
 //   validation(emailSchema),
