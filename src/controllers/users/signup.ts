@@ -28,8 +28,10 @@ export const signUp: express.RequestHandler = async (req, res) => {
     to: email,
     from: 'vakabo@gmail.com',
     subject: 'Registration verification',
-    text: `Varify http://localhost:6969/api/users/verify/${verificationToken}`,
-    html: `<a href="http://localhost:6969/api/users/verify/${verificationToken}">Verify</a>`,
+    text: `Varify ${process.env.BASE_URL}/api/users/verify/${verificationToken}`,
+    html: `<a href="${process.env.BASE_URL}/api/users/verify/${verificationToken}">Verify</a>`,
+    // text: `Varify http://localhost:6969/api/users/verify/${verificationToken}`,
+    // html: `<a href="http://localhost:6969/api/users/verify/${verificationToken}">Verify</a>`,
   }
 
   const result = await userDao.createUser({
