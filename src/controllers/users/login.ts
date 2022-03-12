@@ -3,6 +3,7 @@ import error from 'http-errors'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import userDao from '../../dao/user-dao'
+import IUser from 'src/interface/User.interface'
 
 const { Unauthorized, Forbidden } = error
 const { compareSync } = bcrypt
@@ -29,14 +30,13 @@ export const login: express.RequestHandler = async (req, res) => {
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' })
 
   user.token = token
-  await userDao.findUserByIdAndUpdate(user._id as string, { token })
+  await userDao.findUserByIdAndUpdate(user._id as string, { token } as IUser)
 
   res.status(200).json({
     message: 'success',
     token,
     user: {
       email: user.email,
-      subscription: user.subscription,
     },
   })
 }

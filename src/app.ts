@@ -2,7 +2,7 @@ import express, { json, NextFunction, Request, Response } from 'express'
 import logger from 'morgan'
 import cors from 'cors'
 // import path from 'path'
-import { usersRouter } from './routes'
+import { moviesRouter, usersRouter } from './routes'
 
 import 'dotenv/config'
 import { HttpError } from 'http-errors'
@@ -18,6 +18,7 @@ app.use(json())
 // app.use(express.static(staticFilesPath))
 
 app.use('/api/users', usersRouter)
+app.use('/api/movie', moviesRouter)
 // app.use('/api/contacts', contactsRouter)
 
 app.use((req, res) => {

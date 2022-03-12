@@ -14,11 +14,12 @@ const userSchema = new Schema<IUser>(
       required: [true, 'Email is required'],
       unique: true,
     },
-    subscription: {
-      type: String,
-      enum: ['starter', 'pro', 'business'],
-      default: 'starter',
-    },
+    // movies: {
+    //   type: Array,
+    //   // enum: ['starter', 'pro', 'business'],
+    //   default: [1],
+    // },
+    movies: Array,
     token: {
       type: String,
       default: null,

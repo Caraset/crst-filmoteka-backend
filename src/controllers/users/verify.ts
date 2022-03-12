@@ -1,5 +1,6 @@
 import express from 'express'
 import error from 'http-errors'
+import IUser from 'src/interface/User.interface'
 import userDao from '../../dao/user-dao'
 
 const { NotFound } = error
@@ -12,10 +13,13 @@ export const verify: express.RequestHandler = async (req, res) => {
     throw new NotFound('User not found')
   }
 
-  await userDao.findUserByIdAndUpdate(user._id as string, {
-    verify: true,
-    verificationToken: null,
-  })
+  await userDao.findUserByIdAndUpdate(
+    user._id as string,
+    {
+      verify: true,
+      verificationToken: null,
+    } as IUser,
+  )
 
   res.status(200).json({ message: 'Verification successful' })
 }

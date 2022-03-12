@@ -10,6 +10,15 @@ declare global {
 }
 
 // declare global {
+//   export namespace Express {
+
+//     interface RequestHandler {
+
+//     }
+//   }
+// }
+
+// declare global {
 //   export namespace jsonwebtoken {
 //     interface JsonWebTokenError {
 //       status: number

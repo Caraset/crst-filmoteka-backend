@@ -39,6 +39,7 @@ export const signUp: express.RequestHandler = async (req, res) => {
     password: hashedPassword,
     // avatarURL,
     verificationToken,
+    movies: [],
   })
 
   sgMail.send(msg)
@@ -47,7 +48,6 @@ export const signUp: express.RequestHandler = async (req, res) => {
     message: 'success',
     user: {
       email: result?.email,
-      subscription: result?.subscription,
       // avatarURL: result.avatarURL,
     },
   })
