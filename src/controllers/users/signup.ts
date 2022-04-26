@@ -22,27 +22,28 @@ export const signUp: express.RequestHandler = async (req, res) => {
 
   const hashedPassword = hashSync(password, genSaltSync(10))
   //   const avatarURL = gravatar.url(email)
-  const verificationToken = uuidv4()
+  // const verificationToken = uuidv4()
 
-  const msg = {
-    to: email,
-    from: 'vakabo@gmail.com',
-    subject: 'Registration verification',
-    text: `Varify ${process.env.BASE_URL}/api/users/verify/${verificationToken}`,
-    html: `<a href="${process.env.BASE_URL}/api/users/verify/${verificationToken}">Verify</a>`,
-    // text: `Varify http://localhost:6969/api/users/verify/${verificationToken}`,
-    // html: `<a href="http://localhost:6969/api/users/verify/${verificationToken}">Verify</a>`,
-  }
+  // const msg = {
+  //   to: email,
+  //   from: 'vakabo@gmail.com',
+  //   subject: 'Registration verification',
+  //   text: `Varify ${process.env.BASE_URL}/api/users/verify/${verificationToken}`,
+  //   html: `<a href="${process.env.BASE_URL}/api/users/verify/${verificationToken}">Verify</a>`,
+  //   // text: `Varify http://localhost:6969/api/users/verify/${verificationToken}`,
+  //   // html: `<a href="http://localhost:6969/api/users/verify/${verificationToken}">Verify</a>`,
+  // }
 
   const result = await userDao.createUser({
     email,
     password: hashedPassword,
+    moviesQueue: [],
+    moviesWatched: [],
     // avatarURL,
-    verificationToken,
-    movies: [],
+    // verificationToken,
   })
 
-  sgMail.send(msg)
+  // sgMail.send(msg)
 
   res.status(201).json({
     message: 'success',

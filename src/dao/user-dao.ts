@@ -1,7 +1,8 @@
+import { Types } from 'mongoose'
 import { User } from '../model/User'
 import IUser from '../interface/User.interface'
 
-const findUserById = async (id: string): Promise<IUser | null> =>
+const findUserById = async (id: Types.ObjectId): Promise<IUser | null> =>
   User.findById(id)
 
 const findUserByEmail = async (email: {
@@ -13,7 +14,7 @@ const findUserByVerificationToken = async (verificationToken: {
 }): Promise<IUser | null> => User.findOne(verificationToken)
 
 const findUserByIdAndUpdate = async (
-  id: string,
+  id: Types.ObjectId,
   payload: IUser,
   options = {},
 ): Promise<IUser | null> => User.findByIdAndUpdate(id, payload, { ...options })

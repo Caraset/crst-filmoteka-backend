@@ -1,5 +1,6 @@
 import express from 'express'
 import error from 'http-errors'
+import { Types } from 'mongoose'
 import IUser from 'src/interface/User.interface'
 import userDao from '../../dao/user-dao'
 
@@ -14,7 +15,7 @@ export const verify: express.RequestHandler = async (req, res) => {
   }
 
   await userDao.findUserByIdAndUpdate(
-    user._id as string,
+    user._id as Types.ObjectId,
     {
       verify: true,
       verificationToken: null,

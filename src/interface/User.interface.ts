@@ -1,10 +1,11 @@
+import { Types } from 'mongoose'
+
 export default interface IUser {
-  _id?: string
+  _id?: Types.ObjectId
   password?: string
   email?: string
-  // subscription?: 'starter' | 'pro' | 'business'
-  // movies: number[] | string[]
-  movies: (string | number)[]
+  moviesWatched?: Types.ObjectId[]
+  moviesQueue?: Types.ObjectId[]
   token?: string | null
   verify?: boolean
   verificationToken?: string | null

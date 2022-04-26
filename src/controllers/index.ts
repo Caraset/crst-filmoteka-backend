@@ -4,9 +4,9 @@ import { verify } from './users/verify'
 import { current } from './users/current'
 import { logout } from './users/logout'
 
-import { addMovie } from './movie/addMovie'
+import { saveMovie } from './movie/saveMovie'
 
 // export default { signUp, login, verify, current, logout }
 
 export const userCtrl = { signUp, login, verify, current, logout }
-export const movieCtrl = { addMovie }
+export const movieCtrl = { saveMovie }

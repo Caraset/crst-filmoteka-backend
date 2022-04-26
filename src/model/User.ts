@@ -19,19 +19,20 @@ const userSchema = new Schema<IUser>(
     //   // enum: ['starter', 'pro', 'business'],
     //   default: [1],
     // },
-    movies: Array,
+    moviesWatched: Array,
+    moviesQueue: Array,
     token: {
       type: String,
       default: null,
     },
-    verify: {
-      type: Boolean,
-      default: false,
-    },
-    verificationToken: {
-      type: String,
-      required: [true, 'Verify token is required'],
-    },
+    // verify: {
+    //   type: Boolean,
+    //   default: false,
+    // },
+    // verificationToken: {
+    //   type: String,
+    //   required: [true, 'Verify token is required'],
+    // },
   },
   { versionKey: false, timestamps: false },
 )

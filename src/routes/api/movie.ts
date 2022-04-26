@@ -3,12 +3,18 @@ import { Router } from 'express'
 import { movieCtrl } from '../../controllers/index'
 // import path from 'path'
 
-import { validation, ctrlWrapper, auth } from '../../middlewares/index'
+import {
+  validation,
+  ctrlWrapper,
+  auth,
+  addMovie,
+} from '../../middlewares/index'
 import { userSchema, emailSchema } from '../../schemas/user'
 
 const router = Router()
 
-router.post('/addmovie', auth, ctrlWrapper(movieCtrl.addMovie))
+// router.post('/save', auth, addMovie, ctrlWrapper(movieCtrl.saveMovie))
+router.post('/save', auth, addMovie, ctrlWrapper(movieCtrl.saveMovie))
 // router.post('/signup', validation(userSchema), ctrlWrapper(userCrtl.signUp))
 // router.post('/login', validation(userSchema), ctrlWrapper(userCrtl.login))
 // router.get('/logout', auth, ctrlWrapper(userCrtl.logout))

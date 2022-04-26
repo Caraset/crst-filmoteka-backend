@@ -2,6 +2,7 @@ import express from 'express'
 import error from 'http-errors'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import { Types } from 'mongoose'
 import userDao from '../../dao/user-dao'
 import IUser from 'src/interface/User.interface'
 
@@ -19,9 +20,9 @@ export const login: express.RequestHandler = async (req, res) => {
     throw new Unauthorized('Email or password is wrong')
   }
 
-  if (user.verify === false) {
-    throw new Forbidden('Not verified')
-  }
+  // if (user.verify === false) {
+  //   throw new Forbidden('Not verified')
+  // }
 
   const payload = {
     id: user._id,
@@ -30,7 +31,11 @@ export const login: express.RequestHandler = async (req, res) => {
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' })
 
   user.token = token
-  await userDao.findUserByIdAndUpdate(user._id as string, { token } as IUser)
+
+  await userDao.findUserByIdAndUpdate(
+    user._id as Types.ObjectId,
+    { token } as IUser,
+  )
 
   res.status(200).json({
     message: 'success',
