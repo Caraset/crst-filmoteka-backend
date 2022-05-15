@@ -25,7 +25,7 @@ export const saveMovie: express.RequestHandler = async (req, res, next) => {
     user = await User.findOneAndUpdate(
       _id,
       {
-        $addToSet: { moviesWatched: movie._id },
+        $addToSet: { moviesWatched: movie.id },
       },
       { new: true },
     )
@@ -35,7 +35,7 @@ export const saveMovie: express.RequestHandler = async (req, res, next) => {
     user = await User.findByIdAndUpdate(
       _id,
       {
-        $addToSet: { moviesQueue: movie._id },
+        $addToSet: { moviesQueue: movie.id },
       },
       { new: true },
     )
@@ -45,10 +45,8 @@ export const saveMovie: express.RequestHandler = async (req, res, next) => {
     throw new NotFound('user not found')
   }
 
-  res
-    .status(201)
-    .json({
-      message: 'success',
-      data: { watched: user.moviesWatched, queue: user.moviesQueue },
-    })
+  res.status(201).json({
+    message: 'success',
+    data: { watched: user.moviesWatched, queue: user.moviesQueue },
+  })
 }

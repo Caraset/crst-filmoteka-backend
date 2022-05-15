@@ -29,6 +29,7 @@ export const login: express.RequestHandler = async (req, res) => {
   }
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' })
+  // const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1m' })
 
   user.token = token
 
@@ -42,6 +43,8 @@ export const login: express.RequestHandler = async (req, res) => {
     token,
     user: {
       email: user.email,
+      moviesWatched: user.moviesWatched,
+      moviesQueue: user.moviesQueue,
     },
   })
 }

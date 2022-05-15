@@ -15,6 +15,7 @@ const router = Router()
 
 // router.post('/save', auth, addMovie, ctrlWrapper(movieCtrl.saveMovie))
 router.post('/save', auth, addMovie, ctrlWrapper(movieCtrl.saveMovie))
+router.delete('/delete', auth, ctrlWrapper(movieCtrl.removeMovie))
 // router.post('/signup', validation(userSchema), ctrlWrapper(userCrtl.signUp))
 // router.post('/login', validation(userSchema), ctrlWrapper(userCrtl.login))
 // router.get('/logout', auth, ctrlWrapper(userCrtl.logout))
