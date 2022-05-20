@@ -3,6 +3,11 @@ import IUser from '../interface/User.interface'
 
 const { Schema, model } = mongoose
 
+// const movieLibSchema = new Schema({
+//   movies: Array,
+//   totalMovies: Number,
+// })
+
 const userSchema = new Schema<IUser>(
   {
     password: {
@@ -14,13 +19,26 @@ const userSchema = new Schema<IUser>(
       required: [true, 'Email is required'],
       unique: true,
     },
-    // movies: {
-    //   type: Array,
-    //   // enum: ['starter', 'pro', 'business'],
-    //   default: [1],
-    // },
-    moviesWatched: Array,
-    moviesQueue: Array,
+    moviesQueue: {
+      movies: {
+        type: Array,
+        default: [],
+      },
+      totalMovies: {
+        type: Number,
+        default: 0,
+      },
+    },
+    moviesWatched: {
+      movies: {
+        type: Array,
+        default: [],
+      },
+      totalMovies: {
+        type: Number,
+        default: 0,
+      },
+    },
     token: {
       type: String,
       default: null,

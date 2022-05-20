@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 import sgMail from '@sendgrid/mail'
 import 'dotenv/config'
 import userDao from '../../dao/user-dao'
+import { User } from '../../model/User'
 
 const { Conflict } = error
 const { genSaltSync, hashSync } = bcrypt
@@ -34,11 +35,12 @@ export const signUp: express.RequestHandler = async (req, res) => {
   //   // html: `<a href="http://localhost:6969/api/users/verify/${verificationToken}">Verify</a>`,
   // }
 
-  const result = await userDao.createUser({
+  // const result = await userDao.createUser({
+  const result = await User.create({
     email,
     password: hashedPassword,
-    moviesQueue: [],
-    moviesWatched: [],
+    // moviesQueue: [],
+    // moviesWatched: [],
     // avatarURL,
     // verificationToken,
   })

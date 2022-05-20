@@ -22,9 +22,11 @@ export const removeMovie: express.RequestHandler = async (req, res) => {
 
   if (type === 'watched') {
     user = await User.findByIdAndUpdate(
-      _id,
+      { _id },
       {
-        $pull: { moviesWatched: movieId },
+        $pull: { 'moviesWatched.movies': movieId },
+        // $pull: { 'moviesWatched.movies': { $in: movieId } },
+        $inc: { 'moviesWatched.totalMovies': -1 },
       },
       { new: true },
     )
@@ -32,9 +34,10 @@ export const removeMovie: express.RequestHandler = async (req, res) => {
 
   if (type === 'queue') {
     user = await User.findByIdAndUpdate(
-      _id,
+      { _id },
       {
-        $pull: { moviesQueue: movieId },
+        $pull: { 'moviesQueue.movies': movieId },
+        $inc: { 'moviesQueue.totalMovies': -1 },
       },
       { new: true },
     )
@@ -48,22 +51,4 @@ export const removeMovie: express.RequestHandler = async (req, res) => {
     message: 'success',
     data: { watched: user.moviesWatched, queue: user.moviesQueue },
   })
-
-  // const { movies } = user
-
-  // const movieIndex = movies.findIndex(id => id === movieId)
-
-  // if (movieIndex === -1) {
-  //   throw new NotFound('movie not in library')
-  // }
-
-  // const newMovieArr = movies.slice().splice(movieIndex, 1)
-
-  // const newUser = await userDao.findUserByIdAndUpdate(
-  //   _id as string,
-  //   { movies: newMovieArr },
-  //   { new: true },
-  // )
-
-  // res.status(200).json({ message: 'success', movies: newUser?.movies })
 }

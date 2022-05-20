@@ -23,9 +23,10 @@ export const saveMovie: express.RequestHandler = async (req, res, next) => {
 
   if (type === 'watched') {
     user = await User.findOneAndUpdate(
-      _id,
+      { _id },
       {
-        $addToSet: { moviesWatched: movie.id },
+        $addToSet: { 'moviesWatched.movies': movie.id },
+        $inc: { 'moviesWatched.totalMovies': 1 },
       },
       { new: true },
     )
@@ -33,9 +34,10 @@ export const saveMovie: express.RequestHandler = async (req, res, next) => {
 
   if (type === 'queue') {
     user = await User.findByIdAndUpdate(
-      _id,
+      { _id },
       {
-        $addToSet: { moviesQueue: movie.id },
+        $addToSet: { 'moviesQueue.movies': movie.id },
+        $inc: { 'moviesQueue.totalMovies': 1 },
       },
       { new: true },
     )
