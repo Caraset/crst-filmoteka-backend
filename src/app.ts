@@ -1,11 +1,11 @@
 import express, { json, NextFunction, Request, Response } from 'express'
+import { HttpError } from 'http-errors'
 import logger from 'morgan'
 import cors from 'cors'
-// import path from 'path'
+
 import { moviesRouter, usersRouter } from './routes'
 
 import 'dotenv/config'
-import { HttpError } from 'http-errors'
 
 const app = express()
 
@@ -15,11 +15,8 @@ app.use(logger(formatsLogger))
 app.use(cors())
 app.use(json())
 
-// app.use(express.static(staticFilesPath))
-
 app.use('/api/users', usersRouter)
 app.use('/api/movie', moviesRouter)
-// app.use('/api/contacts', contactsRouter)
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' })

@@ -1,14 +1,9 @@
 import mongoose from 'mongoose'
-import IUser from '../interface/User.interface'
+import { UserI } from '../types'
 
 const { Schema, model } = mongoose
 
-// const movieLibSchema = new Schema({
-//   movies: Array,
-//   totalMovies: Number,
-// })
-
-const userSchema = new Schema<IUser>(
+const userSchema = new Schema<UserI>(
   {
     password: {
       type: String,
@@ -43,16 +38,8 @@ const userSchema = new Schema<IUser>(
       type: String,
       default: null,
     },
-    // verify: {
-    //   type: Boolean,
-    //   default: false,
-    // },
-    // verificationToken: {
-    //   type: String,
-    //   required: [true, 'Verify token is required'],
-    // },
   },
   { versionKey: false, timestamps: false },
 )
 
-export const User = model<IUser>('User', userSchema)
+export const User = model<UserI>('User', userSchema)

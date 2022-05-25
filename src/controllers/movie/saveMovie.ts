@@ -1,16 +1,10 @@
-import error from 'http-errors'
 import express from 'express'
-import { Types } from 'mongoose'
+import { NotFound, BadRequest } from 'http-errors'
 
-import userDao from '../../dao/user-dao'
 import { User } from '../../model/User'
-import { Movie } from '../../model/Movie'
-import IUser from 'src/interface/User.interface'
-import MovieI from 'src/interface/Movie.interface'
+import { UserI } from 'src/types'
 
-const { NotFound, BadRequest, Conflict } = error
-
-export const saveMovie: express.RequestHandler = async (req, res, next) => {
+export const saveMovie: express.RequestHandler = async (req, res) => {
   const { _id } = req.user
   const { movie } = req
   const { type } = req.body
@@ -19,7 +13,7 @@ export const saveMovie: express.RequestHandler = async (req, res, next) => {
     throw new BadRequest('smth wrong with movie object')
   }
 
-  let user: IUser | null = null
+  let user: UserI | null = null
 
   if (type === 'watched') {
     user = await User.findOneAndUpdate(

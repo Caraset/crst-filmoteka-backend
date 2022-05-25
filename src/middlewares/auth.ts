@@ -1,13 +1,10 @@
-import * as _ from '../@types/index'
+// import * as _ from '../@types/index'
 import express from 'express'
-import error from 'http-errors'
+import { Unauthorized, HttpError } from 'http-errors'
 import jwt from 'jsonwebtoken'
-import userDao from '../dao/user-dao'
 import 'dotenv/config'
-import IUser from '../interface/User.interface'
+import { User } from '../model/User'
 
-const { Unauthorized, HttpError } = error
-const { verify } = jwt
 const { SECRET_KEY } = process.env
 
 export const auth = async (
@@ -23,8 +20,8 @@ export const auth = async (
       throw new Unauthorized('Not authorized')
     }
 
-    const { id } = verify(token, SECRET_KEY as string) as jwt.JwtPayload
-    const user = await userDao.findUserById(id)
+    const { id } = jwt.verify(token, SECRET_KEY as string) as jwt.JwtPayload
+    const user = await User.findById({ _id: id })
 
     if (!user || !user.token) {
       throw new Unauthorized('Not authorized')
@@ -32,9 +29,9 @@ export const auth = async (
 
     req.user = user
     next()
-  } catch (err: error.HttpError | jwt.VerifyErrors | unknown) {
+  } catch (err: HttpError | jwt.VerifyErrors | unknown) {
     if ((err as jwt.VerifyErrors).message === 'invalid signature')
-      (err as error.HttpError).status = 401
+      (err as HttpError).status = 401
 
     next(err)
   }

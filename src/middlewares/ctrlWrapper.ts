@@ -1,4 +1,3 @@
-// import { Request, Response, NextFunction } from 'express'
 import express from 'express'
 
 type Wrapper = (ctrl: express.RequestHandler) => express.RequestHandler

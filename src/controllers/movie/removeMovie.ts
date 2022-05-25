@@ -1,10 +1,8 @@
 import error from 'http-errors'
 import express from 'express'
-import { Types } from 'mongoose'
 
-import userDao from 'src/dao/user-dao'
 import { User } from '../../model/User'
-import IUser from 'src/interface/User.interface'
+import { UserI } from 'src/types'
 
 const { NotFound } = error
 
@@ -16,16 +14,13 @@ export const removeMovie: express.RequestHandler = async (req, res) => {
     throw new NotFound('Wrong id')
   }
 
-  // const user = await userDao.findUserById(_id as Types.ObjectId)
-
-  let user: IUser | null = null
+  let user: UserI | null = null
 
   if (type === 'watched') {
     user = await User.findByIdAndUpdate(
       { _id },
       {
         $pull: { 'moviesWatched.movies': movieId },
-        // $pull: { 'moviesWatched.movies': { $in: movieId } },
         $inc: { 'moviesWatched.totalMovies': -1 },
       },
       { new: true },

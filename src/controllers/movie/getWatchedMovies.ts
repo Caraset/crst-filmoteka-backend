@@ -1,11 +1,7 @@
-import error from 'http-errors'
 import express from 'express'
-import { Types } from 'mongoose'
+import { NotFound } from 'http-errors'
 
 import { Movie } from '../../model/Movie'
-import { User } from '../../model/User'
-
-const { NotFound, BadRequest } = error
 
 export const getWatchedMovies: express.RequestHandler = async (req, res) => {
   const { user } = req

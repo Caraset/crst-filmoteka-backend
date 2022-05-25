@@ -1,6 +1,6 @@
 import { Types } from 'mongoose'
 
-export default interface MovieI {
+export interface MovieI {
   poster_path: string | null
   adult: boolean
   overview: string
@@ -15,4 +15,21 @@ export default interface MovieI {
   vote_count: number
   video: boolean
   vote_average: number
+}
+
+export interface UserI {
+  _id: Types.ObjectId
+  password: string
+  email: string
+  moviesQueue: {
+    movies: number[]
+    totalMovies: number
+  }
+  moviesWatched: {
+    movies: number[]
+    totalMovies: number
+  }
+  token: string | null
+  verify?: boolean
+  verificationToken?: string | null
 }

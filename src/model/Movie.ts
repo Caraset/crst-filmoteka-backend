@@ -1,14 +1,7 @@
-import { boolean, string } from 'joi'
-import mongoose, { ObjectId } from 'mongoose'
-import MovieI from '../interface/Movie.interface'
+import mongoose from 'mongoose'
+import { MovieI } from '../types'
 
 const { Schema, model } = mongoose
-
-// interface IMovie {
-//   // owners: ObjectId[]
-//   owners: ObjectId[]
-//   movie: MovieI
-// }
 
 const movieSchema = new Schema<MovieI>(
   {
@@ -68,15 +61,5 @@ const movieSchema = new Schema<MovieI>(
   },
   { versionKey: false, timestamps: false },
 )
-
-// const movieSchema = new Schema<IMovie>(
-//   {
-//     movie: {
-//       type: Object,
-//       required: [true, 'movie is required'],
-//     },
-//   },
-//   { versionKey: false, timestamps: false },
-// )
 
 export const Movie = model('Movie', movieSchema)
